@@ -20,6 +20,8 @@ def get_dataset(cfg, training=True):
         from .eth3d_dataset import FolderDataset as dataset
     elif dataset_name == 'euroc':
         from .euroc_dataset import FolderDataset as dataset
+    elif dataset_name == 'nyu':
+        from .nyu_dataset import NYUDataset as dataset
 
     fpath = os.path.join(os.path.dirname(__file__), "splits", cfg.split, "{}_files.txt")
     filenames = readlines(fpath.format("train")) if training else readlines(fpath.format('val'))
