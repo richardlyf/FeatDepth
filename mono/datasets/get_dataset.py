@@ -1,4 +1,4 @@
-#!/usr/bin/env python 
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
 # Author: Duanzhixiang(zhixiangduan@deepmotion.ai)
 
@@ -25,6 +25,8 @@ def get_dataset(cfg, training=True):
 
     fpath = os.path.join(os.path.dirname(__file__), "splits", cfg.split, "{}_files.txt")
     filenames = readlines(fpath.format("train")) if training else readlines(fpath.format('val'))
+    if dataset_name == 'nyu':
+        filenames = filenames[:20000]
     img_ext = '.png' if cfg.png == True else '.jpg'
 
     dataset = dataset(cfg.in_path,

@@ -11,7 +11,6 @@ import skimage.transform
 import numpy as np
 import PIL.Image as pil
 
-from kitti_utils import generate_depth_map
 from .mono_dataset import MonoDataset
 
 
@@ -53,12 +52,10 @@ class NYULabeledDataset(MonoDataset):
         super(NYULabeledDataset, self).__init__(*args, **kwargs)
 
         # NOTE: Make sure your intrinsics matrix is *normalized* by the original image size
-        self.K = np.array([[5.1885790117450188e+02, 0, 3.2558244941119034e+02, 0],
-                           [0, 5.1946961112127485e+02, 2.5373616633400465e+02, 0],
+        self.K = np.array([[5.1885790117450188e+02 / 640., 0, 0.5, 0],
+                           [0, 5.1946961112127485e+02 / 480., 0.5, 0],
                            [0, 0, 1, 0],
                            [0, 0, 0, 1]], dtype=np.float32)
-        self.K[0, :] /= self.width
-        self.K[1, :] /= self.height
 
     def check_depth(self):
         """We don't include depth data, because we can't use the mat function to reproject depth to rgb
